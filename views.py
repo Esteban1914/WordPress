@@ -1,16 +1,20 @@
 """
-    /* ====== v1.0.0 ====== /*
+    /* ====== v1.1.0 ====== /*
 """
 
 from django.http import JsonResponse,HttpResponse
 from django.db.utils import OperationalError
 
 """ From model.py
+from django.db import models
+
+
 class WordPress_Posts(models.Model):
     id = models.BigAutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     post_title = models.TextField()
     class Meta:
         managed = False
+
 
 class WordPress_TermRelationships(models.Model):
     object_id = models.PositiveBigIntegerField(primary_key=True)
@@ -24,13 +28,19 @@ class WordPress_TermTaxonomy(models.Model):
     term_taxonomy_id = models.BigAutoField(primary_key=True)
     term_id = models.PositiveBigIntegerField()
     taxonomy = models.CharField(max_length=32)
+    description = models.TextField()
+    parent = models.PositiveBigIntegerField()
+    count = models.BigIntegerField()
     class Meta:
         managed = False
         unique_together = (('term_id', 'taxonomy'),)
 
+
 class WordPress_Terms(models.Model):
     term_id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=200)    
+    name = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200)
+    term_group = models.BigIntegerField()
     class Meta:
         managed = False
 
@@ -114,7 +124,8 @@ def get_articles_by_categories(host:str,port:str,name:str,user:str,passw:str,pre
     except Exception as e:
         error="Error desconocido; Error:{}".format(e)
     raise Connection_DB_Error(error)
-        
+
+
         
 """Prueba de la funcion 'get_articles_by_categories' desde Django """
 def HomeView(request):
