@@ -1,6 +1,6 @@
 <?php
 
-/* ====== v1.0.0 ====== /*
+/* ====== v1.0.1 ====== /*
 
 /*****
  *
@@ -130,7 +130,7 @@ foreach ($recortes as $ind=>$value)
                 {   
                     //If no exist tag, create it     
                     
-                    //Format to alias and path
+                    //Format to slug
                     $tag_title_lnh=quitar_acentos($tag_title);
                     $tag_title_lnh=strtolower($tag_title_lnh);
                     $tag_title_lnh= str_replace(' ', '-', $tag_title_lnh);               
